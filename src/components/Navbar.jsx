@@ -26,10 +26,11 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'About', path: '/#about' },
-    { name: 'Upload', path: '/upload' },
-    { name: 'Contact', path: '/#contact' },
   ];
+
+  if (user) {
+    navLinks.push({ name: 'Upload', path: '/upload' });
+  }
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md shadow-soft py-3' : 'bg-transparent py-5'}`}>
@@ -77,9 +78,14 @@ const Navbar = () => {
                 </button>
               </div>
             ) : (
-              <Link to="/auth" className="btn btn-primary px-8">
-                Login
-              </Link>
+              <div className="flex items-center space-x-4">
+                <Link to="/login" className="text-slate-600 hover:text-primary-600 font-medium transition-colors">
+                  Login
+                </Link>
+                <Link to="/signup" className="btn btn-primary px-8">
+                  Sign Up
+                </Link>
+              </div>
             )}
           </div>
 
@@ -124,9 +130,14 @@ const Navbar = () => {
                     <button onClick={handleLogout} className="text-red-500 font-medium">Logout</button>
                   </div>
                 ) : (
-                  <Link to="/auth" className="block w-full btn btn-primary text-center" onClick={() => setIsOpen(false)}>
-                    Login / Sign Up
-                  </Link>
+                  <div className="space-y-2">
+                    <Link to="/login" className="block w-full text-center py-3 text-slate-600 font-medium bg-slate-50 rounded-xl" onClick={() => setIsOpen(false)}>
+                      Login
+                    </Link>
+                    <Link to="/signup" className="block w-full btn btn-primary text-center" onClick={() => setIsOpen(false)}>
+                      Sign Up
+                    </Link>
+                  </div>
                 )}
               </div>
             </div>
