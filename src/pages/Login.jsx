@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
 import { Activity, Mail, Lock } from 'lucide-react';
 import toast from 'react-hot-toast';
+import loginBg from '../assets/login_bg.png';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -20,9 +21,15 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen pt-24 pb-12 flex items-center justify-center px-4 bg-gradient-to-br from-green-50 via-white to-primary-50 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-96 h-96 bg-primary-100/50 rounded-full blur-3xl -mr-48 -mt-48" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-green-100/50 rounded-full blur-3xl -ml-48 -mb-48" />
+    <div 
+      className="min-h-screen pt-24 pb-12 flex items-center justify-center px-4 relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${loginBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px]" />
       
       <div className="max-w-md w-full relative z-10">
         <div className="text-center mb-6">

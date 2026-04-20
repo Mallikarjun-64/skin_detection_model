@@ -33,7 +33,7 @@ function App() {
             </Routes>
           </AnimatePresence>
         </main>
-        <Footer />
+        {location.pathname !== '/login' && location.pathname !== '/signup' && <Footer />}
       </div>
     </AuthProvider>
   );
