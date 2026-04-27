@@ -11,12 +11,39 @@ const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.email && formData.password) {
-      login({ name: formData.email.split('@')[0], email: formData.email });
+    try {
+      const user = await login(formData.email, formData.password);
       toast.success('Successfully logged in!');
-      navigate('/upload');
+      
+      // In AuthContext, we already fetch the user data.
+      // We check the role from the context later, but here we can just wait for the update
+      // or directly check the role if we want immediate navigation.
+      // Since AuthContext.login returns the user, but might not have the role merged yet
+      // if we're not careful, we should rely on the fact that AuthContext.login 
+      // now fetches and merges the role.
+      
+      // I'll fetch the role again here or just use a small delay if needed, 
+      // but the updated login function in AuthContext should handle it.
+      
+      // Wait for auth context to update? Actually, it's safer to check the role in a useEffect 
+      // or just trust the context. I'll navigate based on the user object returned.
+      
+      // Let's re-fetch the role to be 100% sure before navigating
+      const { doc, getDoc } = await import('firebase/firestore');
+      const { db } = await import('../firebase');
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      const role = userDoc.exists() ? userDoc.data().role : 'patient';
+
+      if (role === 'doctor') {
+        navigate('/doctor-panel');
+      } else {
+        navigate('/upload');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message || 'Login failed');
     }
   };
 

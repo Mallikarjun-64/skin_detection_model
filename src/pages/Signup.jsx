@@ -14,22 +14,32 @@ const Signup = () => {
     phone: '',
     gender: '',
     age: '',
-    password: ''
+    password: '',
+    role: 'patient'
   });
   const { signup } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    signup({ 
-      name: `${formData.firstName} ${formData.lastName}`, 
-      email: formData.email,
-      phone: formData.phone,
-      gender: formData.gender,
-      age: formData.age
-    });
-    toast.success('Account created successfully!');
-    navigate('/upload');
+    try {
+      await signup(formData.email, formData.password, { 
+        name: `${formData.firstName} ${formData.lastName}`,
+        phone: formData.phone,
+        gender: formData.gender,
+        age: formData.age,
+        role: formData.role
+      });
+      toast.success('Account created successfully!');
+      if (formData.role === 'doctor') {
+        navigate('/doctor-panel');
+      } else {
+        navigate('/upload');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message || 'Registration failed');
+    }
   };
 
   return (
@@ -149,6 +159,26 @@ const Signup = () => {
                   onChange={(e) => setFormData({...formData, password: e.target.value})}
                   required
                 />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-semibold text-slate-500 ml-1">Join as</label>
+              <div className="grid grid-cols-2 gap-4">
+                <button
+                  type="button"
+                  onClick={() => setFormData({...formData, role: 'patient'})}
+                  className={`py-2 rounded-xl text-sm font-bold transition-all ${formData.role === 'patient' ? 'bg-primary-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+                >
+                  Patient
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setFormData({...formData, role: 'doctor'})}
+                  className={`py-2 rounded-xl text-sm font-bold transition-all ${formData.role === 'doctor' ? 'bg-primary-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+                >
+                  Doctor
+                </button>
               </div>
             </div>
 

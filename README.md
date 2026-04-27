@@ -14,8 +14,13 @@ SkinAI is a state-of-the-art platform designed to assist users in identifying an
 - **Protected Access**: Advanced features like image analysis and result tracking are strictly secured for verified users.
 - **Data Privacy**: A local-first approach to state management ensures user data remains secure throughout the session.
 
-### 3. Professional Aesthetic
-- **Glassmorphism UI**: A high-end, translucent user interface that feels modern, trustworthy, and medical-grade.
+### 3. Professional### Backend & Database (Real-time)
+- **[Firebase Authentication](https://firebase.google.com/auth)**: Handles secure user Login and Signup.
+- **[Cloud Firestore](https://firebase.google.com/firestore)**: NoSQL real-time database for user profiles, roles, and consultation bookings.
+
+### Frontend Core
+- **[React](https://reactjs.org/)**: A JavaScript library for building user interfaces.
+ that feels modern, trustworthy, and medical-grade.
 - **Responsive Design**: Fully optimized for seamless use across browsers, tablets, and smartphones.
 - **Dynamic Backgrounds**: Custom-tailored medical and technology-themed backgrounds for a premium look and feel.
 
@@ -37,6 +42,12 @@ SkinAI is a state-of-the-art platform designed to assist users in identifying an
    ```bash
    npm run dev
    ```
+
+### Backend Configuration
+The project is integrated with a dedicated Firebase instance. To use your own:
+1. Enable **Authentication** (Email/Password) in Firebase Console.
+2. Enable **Cloud Firestore**.
+3. Update `src/firebase.js` with your credentials.
 
 ## Usage
 1. **Home**: Explore the mission of SkinAI and learn about skin health.

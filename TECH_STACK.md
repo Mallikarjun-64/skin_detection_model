@@ -4,6 +4,10 @@ This document provides a technical overview of the SkinAI project, detailing the
 
 ## Tech Stack
 
+### Backend & Database (Real-time)
+- **Firebase Auth**: Real-time authentication (Login/Signup).
+- **Cloud Firestore**: Real-time NoSQL database for users and bookings.
+
 ### Frontend Core
 - **[React](https://reactjs.org/)**: A JavaScript library for building user interfaces.
 - **[Vite](https://vitejs.dev/)**: A high-performance frontend build tool for rapid development and optimized builds.

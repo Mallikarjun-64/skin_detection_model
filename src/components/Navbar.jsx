@@ -19,9 +19,13 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleLogout = () => {
-    logout();
-    navigate('/');
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/', { replace: true });
+    } catch (error) {
+      console.error('Logout failed', error);
+    }
   };
 
   const navLinks = [
@@ -29,7 +33,11 @@ const Navbar = () => {
   ];
 
   if (user) {
-    navLinks.push({ name: 'Upload', path: '/upload' });
+    if (user.role === 'doctor') {
+      navLinks.push({ name: 'Doctor Panel', path: '/doctor-panel' });
+    } else {
+      navLinks.push({ name: 'Upload', path: '/upload' });
+    }
   }
 
   return (

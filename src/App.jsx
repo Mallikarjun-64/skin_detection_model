@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import UploadPage from './pages/Upload';
+import DoctorPanel from './pages/DoctorPanel';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import { AnimatePresence } from 'framer-motion';
@@ -17,21 +18,27 @@ function App() {
       <div className="flex flex-col min-h-screen">
         <Navbar />
         <main className="flex-grow">
-          <AnimatePresence mode="wait">
-            <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route 
-                path="/upload" 
-                element={
-                  <ProtectedRoute>
-                    <UploadPage />
-                  </ProtectedRoute>
-                } 
-              />
-            </Routes>
-          </AnimatePresence>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route 
+              path="/doctor-panel" 
+              element={
+                <ProtectedRoute>
+                  <DoctorPanel />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/upload" 
+              element={
+                <ProtectedRoute>
+                  <UploadPage />
+                </ProtectedRoute>
+              } 
+            />
+          </Routes>
         </main>
         {location.pathname !== '/login' && location.pathname !== '/signup' && <Footer />}
       </div>
